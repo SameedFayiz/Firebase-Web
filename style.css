@@ -1,0 +1,42 @@
+#signIn,
+#signUp {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  align-items: center !important;
+  background-image: url("https://img.freepik.com/free-vector/gradient-dynamic-blue-lines-background_23-2148995756.jpg?size=626&ext=jpg&ga=GA1.1.400972649.1671267927&semt=sph") !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.signInDiv,
+.signUpDiv {
+  display: flex;
+  margin: auto;
+  background-color: rgba(180, 180, 205, 0.693);
+  height: 600px;
+  width: 550px !important;
+  padding: 100px 50px !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.horRule::before,
+.horRule::after {
+  background-color: #000;
+  content: "";
+  display: inline-block;
+  height: 2px;
+  vertical-align: middle;
+  width: 30%;
+}
+
+#signUp>.signUpDiv {
+  height: 650px !important;
+}
+
+#homePage {
+  display: none;
+}

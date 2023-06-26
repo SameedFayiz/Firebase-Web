@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+		<link rel="stylesheet" href="style.css">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+			integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+	</head>
+
+	<body>
+		<div id="signIn" class="d-none">
+			<div class="signInDiv container rounded">
+				<form class="w-100">
+					<center>
+						<div class="my-4">
+							<!-- Your Brand -->
+							<p class="h2 fst-italic fw-bold">Welcome!</p>
+						</div>
+						<div class="input-group mb-3 mt-4">
+							<span class="input-group-text" id="addon1"><i class="fa-solid fa-user"></i></span>
+							<input type="email" class="form-control" placeholder="Email" aria-label="Email"
+								aria-describedby="addon1" id="signInEmail">
+						</div>
+						<div class="input-group">
+							<span class="input-group-text" id="addon2"><i class="fa-solid fa-key"></i></span>
+							<input type="password" class="form-control border-end-0" placeholder="Password"
+								aria-label="Password" aria-describedby="addon2" id="signInPass">
+							<button type="button"
+								class="input-group-text bg-body hide"><i
+									class="fa-solid fa-eye"></i></button>
+						</div>
+						<a
+							class="d-block text-end mb-1 text-decoration-none link-light link-opacity-50-hover fw-medium" id="forgotPass">Forgot
+							Password?</a>
+						<button type="button" class="btn btn-outline-dark btn-light w-25" id="signInBtn">LOGIN</button>
+						<div class="text-center w-100 my-3">
+							<span class="horRule"> OR </span>
+						</div>
+						<div class="btn-group-vertical w-100" role="group" aria-label="Vertical button group">
+							<button type="button" class="btn btn-danger m-1" id="signInGmail"><i
+									class="fa-solid fa-envelope me-2"></i>Login
+								with Gmail</button>
+							<button type="button" class="btn btn-primary m-1" id="signInFb"><i
+									class="fa-brands fa-facebook me-2"></i>Login
+								with Facebook</button>
+						</div>
+						<p>Don't have an account? <a id="goToSignUp"
+								class="text-decoration-none link-light link-opacity-75-hover fw-medium">Sign
+								up</a></p>
+					</center>
+				</form>
+			</div>
+		</div>
+		<div id="signUp" class="">
+			<div class="signUpDiv container rounded">
+				<form class="w-100">
+					<center>
+						<div class="my-3">
+							<!-- Your Brand -->
+							<p class="h2 fst-italic fw-bold">Sign up!</p>
+							<p class="fst-italic text-uppercase">and join our community</p>
+						</div>
+						<div class="input-group mb-2">
+							<span class="input-group-text" id="fName"><i class="fa-solid fa-person"></i></span>
+							<input type="text" class="form-control me-2 rounded-end" placeholder="Firstname" aria-label="Firstname" aria-describedby="fName" id="signUpFName" required>
+							<span class="input-group-text rounded-start" id="lName"><i class="fa-solid fa-person"></i></i></span>
+							<input type="text" class="form-control" placeholder="Lastname" aria-label="Lastname" aria-describedby="lName" id="signUpLName" required>
+						</div>
+						<div class="input-group mb-2">
+							<span class="input-group-text" id="email-text"><i class="fa-solid fa-user"></i></span>
+							<input type="email" class="form-control" placeholder="Email" aria-label="Email"
+								aria-describedby="email-text" id="signUpEmail" required>
+						</div>
+						<div class="input-group mb-2">
+							<span class="input-group-text" id="pass-text1"><i class="fa-solid fa-key"></i></span>
+							<input type="password" class="form-control border-end-0" placeholder="Password"
+								aria-label="Password" aria-describedby="pass-text1" id="signUpPass" required>
+							<button type="button" class="input-group-text bg-body hide"><i
+									class="fa-solid fa-eye"></i></button>
+						</div>
+						<div class="input-group mb-2">
+							<span class="input-group-text" id="pass-text2"><i class="fa-solid fa-key"></i></span>
+							<input type="password" class="form-control border-end-0" placeholder="Confirm Password" aria-label="Confirm Password"
+								aria-describedby="pass-text2" id="signUpConPass" required>
+							<button type="button" class="input-group-text bg-body hide"><i
+									class="fa-solid fa-eye"></i></button>
+						</div>
+						<div class="d-none form-text text-danger bg-light rounded m-1 w-50" id="passCheck">
+							Passwords do not match
+						</div>
+						<button type="button" class="btn btn-outline-dark btn-light w-25" id="signUpBtn">SIGN UP</button>
+						<div class="text-center w-100 my-2">
+							<span class="horRule"> OR </span>
+						</div>
+						<div class="btn-group-vertical w-100" role="group" aria-label="Vertical button group">
+							<button type="button" class="btn btn-danger m-1"><i class="fa-solid fa-envelope me-2" id="signUpGmail"></i>Sign up
+								with Gmail</button>
+							<button type="button" class="btn btn-primary m-1"><i class="fa-brands fa-facebook me-2" id="signUpFb"></i>Sign up
+								with Facebook</button>
+						</div>
+					</center>
+				</form>
+			</div>
+		</div>
+		<div id="homePage"></div>
+		<script src="https://kit.fontawesome.com/0091f48b02.js" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+			crossorigin="anonymous"></script>
+		<script src="script.js" type="module"></script>
+	</body>
+
+</html>
