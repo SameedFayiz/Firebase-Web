@@ -1,24 +1,61 @@
+.body1 {
+  background-image: url("https://img.freepik.com/free-vector/purple-3d-modern-background-design_53876-87399.jpg?size=626&ext=jpg&ga=GA1.2.400972649.1671267927&semt=ais") !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.colourThemeText {
+  background: -webkit-linear-gradient(#3a089d, #df06eb);
+  background-clip: initial;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent;
+}
+
+a.colourThemeText:hover,
+.colourThemeBtn:hover {
+  opacity: 0.75;
+  transform: scale(1.02) !important;
+  transition: linear 0.2s !important;
+}
+
+.colourThemeBtn {
+  background: rgb(58, 8, 157);
+  background: linear-gradient(90deg, rgba(58, 8, 157, 1) 0%, rgba(223, 6, 235, 1) 100%);
+}
+
+
 #signIn,
 #signUp {
-  display: flex;
   height: 100%;
   width: 100%;
   min-height: 100vh;
   overflow: hidden;
   align-items: center !important;
-  background-image: url("https://img.freepik.com/free-vector/gradient-dynamic-blue-lines-background_23-2148995756.jpg?size=626&ext=jpg&ga=GA1.1.400972649.1671267927&semt=sph") !important;
-  background-repeat: no-repeat;
-  background-size: cover;
+  transform: translateX(0px);
+  transition: all 1.5s ease-in-out;
 }
 
+.moveOut {
+  transform: translateX(2000px) !important;
+  transition: all 1s ease-in-out;
+}
+
+.moveIn {
+  transform: translateX(-2000px) !important;
+  transition: all 1s ease-in-out;
+}
+
+
 .signInDiv,
-.signUpDiv {
+.signUpDiv,
+.signPageDiv {
   display: flex;
-  margin: auto;
-  background-color: rgba(180, 180, 205, 0.693);
-  height: 600px;
+  background-color: rgb(255, 255, 255);
+  margin: auto 0px !important;
+  height: 650px !important;
   width: 550px !important;
-  padding: 100px 50px !important;
+  padding: 100px 75px !important;
   justify-content: center;
   align-items: center;
 }
@@ -33,9 +70,14 @@
   width: 30%;
 }
 
-#signUp>.signUpDiv {
-  height: 650px !important;
+
+.signPageDiv {
+  justify-content: flex-start;
+  background-image: url("https://img.freepik.com/free-vector/gradient-wavy-purple-background_23-2149117433.jpg") !important;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+
 
 #homePage {
   display: none;

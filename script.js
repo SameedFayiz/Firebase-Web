@@ -3,7 +3,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebas
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
 
-
 const userFName = document.getElementById("signUpFName")
 const userLName = document.getElementById("signUpLName")
 const signUpEmail = document.getElementById("signUpEmail")
@@ -12,12 +11,14 @@ const conPassword = document.getElementById("signUpConPass")
 const signUpBtn = document.getElementById("signUpBtn")
 const signUpGmail = document.getElementById("signUpGmail")
 const signUpFb = document.getElementById("signUpFb")
-const SignInEmail = document.getElementById("signInEmail")
-const SignInPassword = document.getElementById("signInPass")
+const signInEmail = document.getElementById("signInEmail")
+const signInPassword = document.getElementById("signInPass")
 const forgotPass = document.getElementById("forgotPass")
 const signInBtn = document.getElementById("signInBtn")
 const signInGmail = document.getElementById("signInGmail")
 const signInFb = document.getElementById("signInFb")
+const goToSignUp = document.getElementById("goToSignUp")
+const goToSignIn = document.getElementById("goToSignIn")
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -37,6 +38,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
+
+
+signUpBtn.addEventListener("click", signUp)
 
 function signUp() {
     var passCheck = document.querySelector("#passCheck")
@@ -85,7 +89,8 @@ function signUp() {
         passCheck.classList.add("d-block")
     }
 }
-signUpBtn.addEventListener("click", signUp)
+
+
 var hideBtns = document.querySelectorAll(".hide")
 hideBtns.forEach((x) => { x.addEventListener("click", () => { showPass(x) }) })
 
@@ -102,5 +107,40 @@ function showPass(x) {
                 x.innerHTML = '<i class="fa-solid fa-eye"></i>'
             }
         }
+    }
+}
+
+
+goToSignIn.addEventListener("click", () => { signUpsignIn(goToSignIn) })
+goToSignUp.addEventListener("click", () => { signUpsignIn(goToSignUp) })
+
+function signUpsignIn(x) {
+    let signUp = document.querySelector("#signUp")
+    let signIn = document.querySelector("#signIn")
+    if (x.id == "goToSignUp") {
+        signInEmail.value = null, signInPassword.value = null
+        signIn.classList.add("moveOut")
+        setTimeout(() => {
+            console.log("hi");
+            signIn.classList.remove("d-flex")
+            signIn.classList.add("d-none")
+            signUp.classList.add("d-flex")
+            signUp.classList.remove("d-none")
+            setTimeout(() => {
+                signUp.classList.remove("moveIn")
+            }, 1);
+        }, 1600)
+    } else {
+        userFName.value = null, userLName.value = null, signUpEmail.value = null, signUpPassword.value = null, conPassword.value = null
+        signUp.classList.add("moveIn")
+        setTimeout(() => {
+            signIn.classList.remove("d-none")
+            signIn.classList.add("d-flex")
+            signUp.classList.remove("d-flex")
+            signUp.classList.add("d-none")
+            setTimeout(() => {
+                signIn.classList.remove("moveOut")
+            }, 1);
+        }, 1600);
     }
 }
