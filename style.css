@@ -33,7 +33,7 @@ a.colourThemeText:hover,
   overflow: hidden;
   align-items: center !important;
   transform: translateX(0px);
-  transition: all 1.4s ease-in-out;
+  transition: all 1.3s ease-in-out;
 }
 
 .moveOut {
