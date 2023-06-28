@@ -33,17 +33,15 @@ a.colourThemeText:hover,
   overflow: hidden;
   align-items: center !important;
   transform: translateX(0px);
-  transition: all 1.5s ease-in-out;
+  transition: all 1.4s ease-in-out;
 }
 
 .moveOut {
-  transform: translateX(2000px) !important;
-  transition: all 1s ease-in-out;
+  transform: translateX(1800px) !important;
 }
 
 .moveIn {
-  transform: translateX(-2000px) !important;
-  transition: all 1s ease-in-out;
+  transform: translateX(-1800px) !important;
 }
 
 
@@ -82,3 +80,18 @@ a.colourThemeText:hover,
 #homePage {
   display: none;
 }
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}
