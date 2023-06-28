@@ -128,7 +128,7 @@ function signUpsignIn(x) {
             signUp.classList.remove("d-none")
             setTimeout(() => {
                 signUp.classList.remove("moveIn")
-            }, 1);
+            }, 300);
         }, 1600)
     } else {
         userFName.value = null, userLName.value = null, signUpEmail.value = null, signUpPassword.value = null, conPassword.value = null
@@ -140,7 +140,7 @@ function signUpsignIn(x) {
             signUp.classList.add("d-none")
             setTimeout(() => {
                 signIn.classList.remove("moveOut")
-            }, 1);
+            }, 300);
         }, 1600);
     }
 }
