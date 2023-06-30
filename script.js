@@ -45,8 +45,8 @@ onAuthStateChanged(auth, (user) => {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
-        location.href = window.location.pathname + "home/home.html"
-
+        let goTo = window.location.href
+        location.href = goTo.substring(0,goTo.indexOf("index.html")) + "home/home.html"
     } else {
         // User is signed out
     }
