@@ -1,0 +1,55 @@
+#bodyMain {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.colourThemeText {
+    background: -webkit-linear-gradient(#3a089d, #df06eb);
+    background-clip: initial;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+}
+
+a.colourThemeText:hover,
+.colourThemeBtn:hover {
+    opacity: 0.75;
+    transform: scale(1.02) !important;
+    transition: linear 0.2s !important;
+}
+
+.colourThemeBtn {
+    background: rgb(58, 8, 157);
+    background: linear-gradient(90deg, rgba(58, 8, 157, 1) 0%, rgba(223, 6, 235, 1) 100%);
+}
+
+.cardBase {
+    max-height: 350px;
+    width: 250px;
+}
+
+.titleText {
+    font-size: 17px;
+    line-height: 20px;
+    margin: 0;
+}
+
+.disPrice {
+    font-size: 16px;
+        margin: 0;
+}
+
+.priceText {
+    font-size: 14px;
+    margin: 0;
+}
+
+.ratingText {
+    font-size: 12px;
+    margin: 0;
+}
+
+.cartBtn {
+    font-size: 12px;
+}

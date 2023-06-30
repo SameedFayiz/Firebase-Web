@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
 
 const userFName = document.getElementById("signUpFName")
@@ -23,11 +23,10 @@ const goToSignIn = document.getElementById("goToSignIn")
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: "AIzaSyBHvuCxNIZ525B2fPIgTE23Z9A51YMZtlw",
     authDomain: "first-project-59564.firebaseapp.com",
+    databaseURL: "https://first-project-59564-default-rtdb.firebaseio.com",
     projectId: "first-project-59564",
     storageBucket: "first-project-59564.appspot.com",
     messagingSenderId: "947027265089",
@@ -39,15 +38,29 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 
+// User state change 
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const uid = user.uid;
+        location.href = "/home/home.html"
+
+    } else {
+        // User is signed out
+    }
+});
+
+// Register new users
 
 signUpBtn.addEventListener("click", signUp)
 
 function signUp() {
-    var passCheck = document.querySelector("#passCheck")
-    console.log(passCheck);
-    passCheck.classList.remove("d-block")
-    passCheck.classList.add("d-none")
-    var valid = false
+    let passCheck = document.querySelector("#passCheck")
+    passCheck.classList.replace("d-block", "d-none")
+
+    let valid = false
     switch (valid) {
         case userFName.checkValidity():
             userFName.reportValidity()
@@ -67,7 +80,7 @@ function signUp() {
         default:
             valid = true
     }
-    var email = signUpEmail.value, password = signUpPassword.value, conPass = conPassword.value
+    let email = signUpEmail.value, password = signUpPassword.value, conPass = conPassword.value
 
     if (!valid) {
         return null
@@ -77,7 +90,6 @@ function signUp() {
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                console.log(user);
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -85,59 +97,104 @@ function signUp() {
                 console.log(errorMessage);
             });
     } else {
-        passCheck.classList.remove("d-none")
-        passCheck.classList.add("d-block")
+        passCheck.classList.replace("d-none", "d-block")
     }
 }
 
+// Allow login for existing users
+
+signInBtn.addEventListener("click", signIn)
+
+function signIn() {
+    let accCheck = document.querySelector("#accountCheck")
+    accCheck.classList.replace("d-block", "d-none")
+
+    let valid = false
+    switch (valid) {
+        case signInEmail.checkValidity():
+            signInEmail.reportValidity()
+            break
+        case signInPassword.checkValidity():
+            signInPassword.reportValidity()
+            break
+        default:
+            valid = true
+    }
+    let email = signInEmail.value, password = signInPassword.value
+
+    if (!valid) {
+        return null
+    }
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            accCheck.classList.replace("d-none", "d-block")
+        });
+}
+
+// User sign out func
+
+function userSignOut() {
+    signOut(auth).then(() => {
+        location.reload()
+        // Sign-out successful.
+    }).catch((error) => {
+        // An error happened.
+    });
+}
+
+// Show and hide password toggler
 
 var hideBtns = document.querySelectorAll(".hide")
-hideBtns.forEach((x) => { x.addEventListener("click", () => { showPass(x) }) })
+hideBtns.forEach((elemBtn) => { elemBtn.addEventListener("click", () => { showPass(elemBtn) }) })
 
-function showPass(x) {
-    var pass = x.parentNode.children
+function showPass(elem) {
+    let pass = elem.parentNode.children
     for (const i of pass) {
         if (i.localName == "input") {
             if (i.type == "password") {
                 i.type = "text"
-                x.innerHTML = '<i class="fa-solid fa-eye-slash"></i>'
+                elem.innerHTML = '<i class="fa-solid fa-eye-slash"></i>'
             }
             else {
                 i.type = "password"
-                x.innerHTML = '<i class="fa-solid fa-eye"></i>'
+                elem.innerHTML = '<i class="fa-solid fa-eye"></i>'
             }
         }
     }
 }
 
+// Sign up and Sign in page navigator
 
 goToSignIn.addEventListener("click", () => { signUpsignIn(goToSignIn) })
 goToSignUp.addEventListener("click", () => { signUpsignIn(goToSignUp) })
 
-function signUpsignIn(x) {
+function signUpsignIn(elem) {
     let signUp = document.querySelector("#signUp")
     let signIn = document.querySelector("#signIn")
-    if (x.id == "goToSignUp") {
+    if (elem.id == "goToSignUp") {
         signInEmail.value = null, signInPassword.value = null
         signIn.classList.add("moveOut")
         setTimeout(() => {
-            console.log("hi");
-            signIn.classList.remove("d-flex")
-            signIn.classList.add("d-none")
-            signUp.classList.add("d-flex")
-            signUp.classList.remove("d-none")
+            signIn.classList.replace("d-flex", "d-none")
+            signUp.classList.replace("d-none", "d-flex")
             setTimeout(() => {
                 signUp.classList.remove("moveIn")
             }, 50);
         }, 1310)
     } else {
         userFName.value = null, userLName.value = null, signUpEmail.value = null, signUpPassword.value = null, conPassword.value = null
+        let passCheck = document.querySelector("#passCheck")
+        passCheck.classList.replace("d-block", "d-none")
         signUp.classList.add("moveIn")
         setTimeout(() => {
-            signIn.classList.remove("d-none")
-            signIn.classList.add("d-flex")
-            signUp.classList.remove("d-flex")
-            signUp.classList.add("d-none")
+            signIn.classList.replace("d-none", "d-flex")
+            signUp.classList.replace("d-flex", "d-none")
             setTimeout(() => {
                 signIn.classList.remove("moveOut")
             }, 50);
