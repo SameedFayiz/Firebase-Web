@@ -16,7 +16,6 @@ const firebaseConfig = {
     appId: "1:947027265089:web:ab51a4f823f6ff2ade28c0",
     measurementId: "G-G536LP4MYR"
 };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
@@ -26,7 +25,7 @@ const database = getDatabase(app);
 
 var path = location.pathname
 
-if (path.includes("index.html")) {
+if (!path.includes("account.html")) {
 
     // index page variables
 
@@ -57,7 +56,7 @@ if (path.includes("index.html")) {
     goToSignIn.addEventListener("click", () => { signUpsignIn(goToSignIn) })
     goToSignUp.addEventListener("click", () => { signUpsignIn(goToSignUp) })
 
-} else if (path.includes("account.html")) {
+} else {
 
     // Account page variables
 
