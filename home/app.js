@@ -36,6 +36,7 @@ async function showProd(prods, Id, limit = 0) {
     } else if (prods == 3) {
         search = `?limit=${limit}&skip=${Math.floor(Math.random() * 100 + 1)}`
     }
+    
     let cards = document.getElementById(Id)
     cards.innerHTML = null
     const response = await fetch(`https://dummyjson.com/products${search}`)
