@@ -134,8 +134,10 @@ function signUp() {
 
     if (!valid) {
         return null
-    }
-    else if (password === conPass) {
+    } else if (password.length < 8) {
+        passCheck.classList.replace("d-none", "d-block")
+        passCheck.textContent = "Password should be min. 8 characters long"
+    } else if (password === conPass) {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 loader.classList.replace("d-none", "d-block")
