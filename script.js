@@ -84,7 +84,7 @@ onAuthStateChanged(auth, (user) => {
         if (!goTo.includes("account.html")) {
             setTimeout(() => {
                 loader.classList.replace("d-block", "d-none")
-                window.location.href = goTo.slice(0, goTo.indexOf("index.html")) + "/home/home.html"
+                window.location.href = goTo + "home/home.html"
             }, 3000);
         } else {
             const userInfo = ref(database, 'appData/userInfo/' + uid);
