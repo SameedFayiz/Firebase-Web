@@ -81,11 +81,10 @@ onAuthStateChanged(auth, (user) => {
         // User is signed in, see docs for a list of available properties
         const uid = user.uid;
         let goTo = window.location.href
-
         if (!goTo.includes("account.html")) {
             setTimeout(() => {
                 loader.classList.replace("d-block", "d-none")
-                location.href = goTo.substring(0, goTo.indexOf("index.html")) + "home/home.html"
+                location.href = goTo.slice(0, goTo.indexOf("index.html")) + "/home/home.html"
             }, 3000);
         } else {
             const userInfo = ref(database, 'appData/userInfo/' + uid);
@@ -256,9 +255,8 @@ function signUpsignIn(elem) {
 
 function userSignOut() {
     signOut(auth).then(() => {
-        console.log(auth);
         let loc = location.href
-        location.href = loc.substring(0, loc.indexOf("home/account.html")) + "index.html"
+        location.href = loc.slice(0, loc.indexOf("home/account.html"))
         // Sign-out successful.
     }).catch((error) => {
         // An error happened.
