@@ -73,7 +73,7 @@ if (!path.includes("account.html")) {
     signOutBtn.addEventListener("click", userSignOut)
 
 }
-console.log("user" , user);
+
 // User state change 
 onAuthStateChanged(auth, (user) => {
     if (user) {
