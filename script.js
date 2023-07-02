@@ -84,7 +84,7 @@ onAuthStateChanged(auth, (user) => {
         if (!goTo.includes("account.html")) {
             setTimeout(() => {
                 loader.classList.replace("d-block", "d-none")
-                location.href = goTo.slice(0, goTo.indexOf("index.html")) + "/home/home.html"
+                window.location.href = goTo.slice(0, goTo.indexOf("index.html")) + "/home/home.html"
             }, 3000);
         } else {
             const userInfo = ref(database, 'appData/userInfo/' + uid);
@@ -158,6 +158,8 @@ function signUp() {
                 passCheck.textContent = "This email is used by another account"
                 const errorCode = error.code;
                 const errorMessage = error.message;
+                console.log("sign up error-->", errorMessage);
+
             });
 
     } else {
@@ -197,6 +199,8 @@ function signIn() {
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            console.log("sign in error-->", errorMessage);
+
             accCheck.classList.replace("d-none", "d-block")
         });
 }
@@ -255,10 +259,11 @@ function signUpsignIn(elem) {
 
 function userSignOut() {
     signOut(auth).then(() => {
-        let loc = location.href
-        location.href = loc.slice(0, loc.indexOf("home/account.html"))
+        let loc = window.location.href
+        window.location.href = loc.slice(0, loc.indexOf("/home/account.html"))
         // Sign-out successful.
     }).catch((error) => {
+        console.log("logout error-->",error.message);
         // An error happened.
     });
 }
