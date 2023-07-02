@@ -1,24 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-
-
-const userFName = document.getElementById("signUpFName")
-const userLName = document.getElementById("signUpLName")
-const signUpEmail = document.getElementById("signUpEmail")
-const signUpPassword = document.getElementById("signUpPass")
-const conPassword = document.getElementById("signUpConPass")
-const signUpBtn = document.getElementById("signUpBtn")
-const signUpGmail = document.getElementById("signUpGmail")
-const signUpFb = document.getElementById("signUpFb")
-const signInEmail = document.getElementById("signInEmail")
-const signInPassword = document.getElementById("signInPass")
-const forgotPass = document.getElementById("forgotPass")
-const signInBtn = document.getElementById("signInBtn")
-const signInGmail = document.getElementById("signInGmail")
-const signInFb = document.getElementById("signInFb")
-const goToSignUp = document.getElementById("goToSignUp")
-const goToSignIn = document.getElementById("goToSignIn")
+import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -38,23 +21,90 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 
+// Initialize Realtime Database and get a reference to the service
+const database = getDatabase(app);
+
+var path = location.pathname
+
+if (path.includes("index.html")) {
+
+    // index page variables
+
+    var userFName = document.getElementById("signUpFName")
+    var userLName = document.getElementById("signUpLName")
+    var signUpEmail = document.getElementById("signUpEmail")
+    var signUpPassword = document.getElementById("signUpPass")
+    var conPassword = document.getElementById("signUpConPass")
+    var signUpBtn = document.getElementById("signUpBtn")
+    var signUpGmail = document.getElementById("signUpGmail")
+    var signUpFb = document.getElementById("signUpFb")
+    var signInEmail = document.getElementById("signInEmail")
+    var signInPassword = document.getElementById("signInPass")
+    var forgotPass = document.getElementById("forgotPass")
+    var signInBtn = document.getElementById("signInBtn")
+    var signInGmail = document.getElementById("signInGmail")
+    var signInFb = document.getElementById("signInFb")
+    var goToSignUp = document.getElementById("goToSignUp")
+    var goToSignIn = document.getElementById("goToSignIn")
+    var hideBtns = document.querySelectorAll(".hide")
+    var loader = document.getElementById("loading")
+
+    // index page event listeners
+
+    signUpBtn.addEventListener("click", signUp)
+    signInBtn.addEventListener("click", signIn)
+    hideBtns.forEach((elemBtn) => { elemBtn.addEventListener("click", () => { showPass(elemBtn) }) })
+    goToSignIn.addEventListener("click", () => { signUpsignIn(goToSignIn) })
+    goToSignUp.addEventListener("click", () => { signUpsignIn(goToSignUp) })
+
+} else if (path.includes("account.html")) {
+
+    // Account page variables
+
+    var signOutBtn = document.getElementById("signOut")
+    var accfName = document.getElementById("accFname")
+    var acclName = document.getElementById("accLname")
+    var accEmail = document.getElementById("accEmail")
+    var accPass = document.getElementById("accPass")
+    var accPhone = document.getElementById("accPhone")
+    var accAddress = document.getElementById("accAddress")
+
+    // Account page event listeners
+
+    signOutBtn.addEventListener("click", userSignOut)
+
+}
+
 // User state change 
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
         // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
         let goTo = window.location.href
-        location.href = goTo.substring(0,goTo.indexOf("index.html")) + "home/home.html"
+
+        if (!goTo.includes("account.html")) {
+            setTimeout(() => {
+                loader.classList.replace("d-block", "d-none")
+                location.href = goTo.substring(0, goTo.indexOf("index.html")) + "home/home.html"
+            }, 3000);
+        } else {
+            const userInfo = ref(database, 'appData/userInfo/' + uid);
+            onValue(userInfo, (snapshot) => {
+                const data = snapshot.val();
+                accDisplayDetails(data)
+            });
+
+        }
+
     } else {
         // User is signed out
     }
 });
 
-// Register new users
+// Index page Func
 
-signUpBtn.addEventListener("click", signUp)
+// Register new users
 
 function signUp() {
     let passCheck = document.querySelector("#passCheck")
@@ -80,7 +130,8 @@ function signUp() {
         default:
             valid = true
     }
-    let email = signUpEmail.value, password = signUpPassword.value, conPass = conPassword.value
+
+    let email = signUpEmail.value, password = signUpPassword.value, conPass = conPassword.value, fName = userFName.value, lname = userLName.value;
 
     if (!valid) {
         return null
@@ -88,22 +139,34 @@ function signUp() {
     else if (password === conPass) {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
+                loader.classList.replace("d-none", "d-block")
                 // Signed in 
                 const user = userCredential.user;
+                let uid = user.uid;
+
+                set(ref(database, 'appData/userInfo/' + uid), {
+                    address: `not set`,
+                    email: email,
+                    fName: fName,
+                    lName: lname,
+                    password: password,
+                    phone: `not set`
+                });
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log(errorMessage);
+                passCheck.classList.replace("d-none", "d-block")
+                passCheck.textContent = "This email is used by another account"
             });
+
     } else {
+        passCheck.textContent = "Passwords do not match"
         passCheck.classList.replace("d-none", "d-block")
     }
 }
 
 // Allow login for existing users
-
-signInBtn.addEventListener("click", signIn)
 
 function signIn() {
     let accCheck = document.querySelector("#accountCheck")
@@ -127,6 +190,7 @@ function signIn() {
     }
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
+            loader.classList.replace("d-none", "d-block")
             // Signed in 
             const user = userCredential.user;
         })
@@ -137,21 +201,7 @@ function signIn() {
         });
 }
 
-// User sign out func
-
-function userSignOut() {
-    signOut(auth).then(() => {
-        location.reload()
-        // Sign-out successful.
-    }).catch((error) => {
-        // An error happened.
-    });
-}
-
 // Show and hide password toggler
-
-var hideBtns = document.querySelectorAll(".hide")
-hideBtns.forEach((elemBtn) => { elemBtn.addEventListener("click", () => { showPass(elemBtn) }) })
 
 function showPass(elem) {
     let pass = elem.parentNode.children
@@ -170,9 +220,6 @@ function showPass(elem) {
 }
 
 // Sign up and Sign in page navigator
-
-goToSignIn.addEventListener("click", () => { signUpsignIn(goToSignIn) })
-goToSignUp.addEventListener("click", () => { signUpsignIn(goToSignUp) })
 
 function signUpsignIn(elem) {
     let signUp = document.querySelector("#signUp")
@@ -200,4 +247,30 @@ function signUpsignIn(elem) {
             }, 50);
         }, 1310);
     }
+}
+
+// Account Page Functions
+
+// User sign out func
+
+function userSignOut() {
+    signOut(auth).then(() => {
+        console.log(auth);
+        let loc = location.href
+        location.href = loc.substring(0, loc.indexOf("home/account.html")) + "index.html"
+        // Sign-out successful.
+    }).catch((error) => {
+        // An error happened.
+    });
+}
+
+// Display Account Info
+
+function accDisplayDetails(userData) {
+    accEmail.value = userData.email
+    accPass.value = userData.password
+    accfName.value = userData.fName
+    acclName.value = userData.lName
+    accAddress.value = userData.address
+    accPhone.value = userData.phone
 }
