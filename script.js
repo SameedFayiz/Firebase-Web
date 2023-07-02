@@ -154,10 +154,10 @@ function signUp() {
                 });
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
                 passCheck.classList.replace("d-none", "d-block")
                 passCheck.textContent = "This email is used by another account"
+                const errorCode = error.code;
+                const errorMessage = error.message;
             });
 
     } else {
