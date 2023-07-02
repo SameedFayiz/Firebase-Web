@@ -158,7 +158,6 @@ function signUp() {
                 passCheck.textContent = "This email is used by another account"
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                
             });
 
     } else {
